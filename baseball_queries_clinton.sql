@@ -1,3 +1,6 @@
+/*The below queries were written to extract data from the baseball_data sql file provided by Codeacademy. IT can be found in the same repository as a zip file.
+
+Each query has a comment at the start to indicate what question we were trying to answer, and then one at the end to show what answer was found.*/
 --Query to find heaviest team
 select teams.name,batting.yearid, avg(people.weight)
 from people
@@ -57,7 +60,8 @@ limit 10;
 --Query to find pitcher who made the hall of fame averaging the least strikeouts per game
 Select CONCAT(people.namefirst, ' ', people.namelast) as player, 
 		sum(pitching.so) as Strikeouts,
-		sum(pitching.g) as Games
+		sum(pitching.g) as Games,
+		Round(sum(pitching.so)/sum(pitching.g),2) as strikeouts_per_game
 from halloffame
 inner join pitching
 	on halloffame.playerid = pitching.playerid
@@ -68,3 +72,4 @@ group by player, pitching.playerid
 having sum(pitching.so) > 0
 	and sum(pitching.g) > 50
 order by Strikeouts asc;
+--answer is Eddie Dyer
